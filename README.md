@@ -1,4 +1,4 @@
-# Task 08: Bias Detection in LLM Data Narratives# Task 08: Bias Detection in LLM Data Narratives# Task 08 – Bias Detection in LLM Data Narratives
+# Task 08: Bias Detection in LLM Data Narratives
 
 
 
