@@ -34,8 +34,8 @@ env/
 .ipynb_checkpoints/
 *.ipynb
 
-# Data files - Keep the original dataset
-# data/results.csv is tracked (needed for reproduction)
+# Data files - Exclude large datasets (document how to obtain)
+data/results.csv
 
 # Results - Exclude large LLM response logs (document how to regenerate)
 results/logs_csv/*.csv

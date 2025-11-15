@@ -245,24 +245,28 @@ The central question is: **Do LLMs exhibit systematic bias patterns when present
    ``````
 
 
+# Hypotheses Tested
 
-### Dataset Setup## Hypotheses Tested
+| **H1** | Framing Effect | Positive vs. negative tone | "growth potential" vs. "underperformed" |
+| **H2** | Anchoring Bias | Prestige cue | "Team A & D are powerhouses" |
+| **H3** | Attribution Bias | Problem vs. solution | "what went wrong" vs. "opportunities" |
+| **H4** | Selection Bias | Data scope | All matches vs. friendlies only |
+| **H5** | Definition Bias | Metric ambiguity | "dominance" vs. "consistency" |
 
-
+### Dataset Setup
 
 The project uses the **International Football Results dataset** (1872-2017) from Kaggle. This dataset contains approximately 40,000 international football matches with detailed statistics.| ID | Bias Type | Manipulation | Example |
 
 |----|-----------|--------------|---------|
 
-1. **Download the dataset**:| **H1** | Framing Effect | Positive vs. negative tone | "growth potential" vs. "underperformed" |
+1. **Download the dataset**:
 
-   - Visit [Kaggle International Football Results](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017)| **H2** | Anchoring Bias | Prestige cue | "Team A & D are powerhouses" |
+   - Visit [Kaggle International Football Results](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017)
 
-   - Download `results.csv` (ensure it contains columns: `date`, `home_team`, `away_team`, `home_score`, `away_score`, `tournament`, `city`, `country`)| **H3** | Attribution Bias | Problem vs. solution | "what went wrong" vs. "opportunities" |
+   - Download `results.csv` (ensure it contains columns: `date`, `home_team`, `away_team`, `home_score`, `away_score`, `tournament`, `city`, `country`)
 
-| **H4** | Selection Bias | Data scope | All matches vs. friendlies only |
 
-2. **Place in project**:| **H5** | Definition Bias | Metric ambiguity | "dominance" vs. "consistency" |
+2. **Place in project**:
 
    ```bash
 
@@ -635,69 +639,4 @@ This research follows strict ethical guidelines:
    - **Symptom**: "Resource 'corpora/brown' not found"
    - **Fix**: Run `python -m textblob.download_corpora` to download required NLTK data.
 
-### Validation Commands
 
-```bash
-# Check Python version
-python --version  # Should be 3.10+
-
-# Verify all dependencies installed
-pip list | grep -E "pandas|scipy|textblob|matplotlib"
-
-# Test all scripts compile
-python -m py_compile src/*.py
-
-# Validate dataset loaded correctly
-python -c "import pandas as pd; print(pd.read_csv('data/results.csv').shape)"
-
-# Check prompt generation works
-python src/experiment_design.py && cat prompts/variants.json | head -n 20
-```
-
-## Timeline and Submission
-
-**Key Deadlines** (IST 652 Fall 2025):
-- **October 15, 2025**: Qualtrics Report #1 (Experimental Design)
-- **November 1, 2025**: Qualtrics Report #2 (Progress Update)
-- **November 15, 2025**: Final Qualtrics Report + GitHub Repository Link
-
-**Current Status**: Experimental design complete, data collection in progress. All code validated and ready for use.
-
-**Before Final Submission**:
-1. Complete data collection (30-90 responses)
-2. Run all analysis scripts (`analyze_bias.py`, `validate_claims.py`)
-3. Generate visualizations (box plots, heatmaps)
-4. Fill in "TBD" sections in REPORT.md with actual results
-5. Update this README.md Key Findings section with concrete outcomes
-6. Create COMPLETION_SUMMARY.md final version
-7. Push to GitHub with clean commit history
-8. Submit GitHub URL via Qualtrics form
-
-## Citation
-
-If you use this project in your research, please cite:
-
-```
-Deshmukh, A. (2025). Task 08: Bias Detection in LLM Data Narratives. 
-Syracuse University, IST 652: Scripting for Data Analysis.
-GitHub: <your-repo-url>
-```
-
-## License
-
-This project is created for academic purposes as part of IST 652 coursework at Syracuse University. The International Football Results dataset is sourced from Kaggle and subject to its original license. Code and documentation are provided as-is for educational use.
-
-## Contact
-
-**Student**: Aditya Deshmukh  
-**Course**: IST 652 - Scripting for Data Analysis  
-**Institution**: Syracuse University  
-**Semester**: Fall 2025
-
-For questions about methodology or replication, please refer to EXPERIMENTAL_DESIGN.md or REPORT.md.
-
----
-
-**Last Updated**: December 2024  
-**Project Status**: Data Collection Phase  
-**Documentation Version**: 2.0 (Comprehensive Rewrite)
