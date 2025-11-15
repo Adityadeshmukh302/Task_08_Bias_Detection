@@ -1,400 +1,797 @@
-# Task 08: Bias Detection in LLM Data Narratives
+# Task 08: Bias Detection in LLM Data Narratives# Task 08: Bias Detection in LLM Data Narratives
 
 
-
-## Project Overview
-
-
-
-This research project investigates how subtle variations in data presentation can trigger cognitive biases in Large Language Models (LLMs), particularly when they interpret and summarize statistical information. Rather than testing explicit manipulation, we explore whether phenomena documented in human decision-making—such as **framing effects**, **anchoring bias**, **attribution bias**, **selection bias**, and **metric bias**—manifest in LLM-generated narratives about the same underlying dataset.**Author:** Aditya Deshmukh  ## Research Project Overview
-
-
-
-The central question is: **Do LLMs exhibit systematic bias patterns when presented with identical data in different formats?** This matters because LLMs are increasingly used to summarize complex datasets in journalism, business intelligence, education, and policy contexts. If subtle presentation differences lead to systematically different interpretations, users may receive biased narratives without realizing the information source was identical.**Course:** Research Task 8 - Syracuse University  
-
-
-
-## What This Project Does**Submission Date:** November 15, 2025This project investigates bias detection in Large Language Model (LLM) data narratives.
-
-
-
-1. **Data Anonymization & Ground Truth Establishment**
-
-   - Uses the International Football Results dataset (1872-2017, ~40,000 matches from Kaggle)
-
-   - Anonymizes country names to Team A through Team E to remove cultural associations## Overview## Project Structure
-
-   - Establishes **fixed ground truth values** for reproducibility:
-
-     - Team A: 63.5% win rate
-
-     - Team B: 59.2% win rate
-
-     - Team C: 58.7% win rateThis project systematically evaluates cognitive biases in Large Language Model (LLM) data narratives through controlled experimental manipulation. Using identical numerical datasets, we test whether prompt framing causes LLMs to generate systematically different conclusions.```
-
-     - Team D: 57.8% win rate
-
-     - Team E: 55.1% win rateResearch_task08_Bias_detection/
-
-     - Average goals per match: 2.75
-
-     - Home advantage: 0.49 goals## Quick Start├── data/
-
-
-
-2. **Hypothesis Testing Through Paired Prompts**│   └── results.csv          # Input dataset (manually populated)
-
-   - Tests 5 specific cognitive biases with 10 total prompts (2 variants per hypothesis)
-
-   - **H1 (Framing)**: Win percentages vs. loss percentages### 1. Setup Environment├── src/
-
-   - **H2 (Anchoring)**: High-to-low vs. low-to-high team ordering
-
-   - **H3 (Attribution)**: Home advantage emphasis vs. competitive balance emphasis│   ├── experiment_design.py # Generate experimental prompts
-
-   - **H4 (Selection)**: Top 3 teams vs. bottom 2 teams prominence
-
-   - **H5 (Metric)**: Goal-based vs. percentage-based analysis```bash│   ├── run_experiment.py    # Execute LLM experiments
-
-
-
-3. **Multi-Model LLM Response Collection**# Create virtual environment│   ├── analyze_bias.py      # Analyze bias in results
-
-   - Supports GPT-5, Claude 3 Opus (Syracuse Enterprise License), and Gemini 1.5 Pro
-
-   - Interactive manual collection workflow (copy prompt → paste response)python3 -m venv .venv│   └── validate_claims.py   # Validate experimental claims
-
-   - Multi-run capability for statistical robustness (3-10 responses per prompt recommended)
-
-   - Dual logging format: CSV (quick analysis) and JSONL (detailed records)source .venv/bin/activate  # On Windows: .venv\Scripts\activate├── prompts/
-
-
-
-4. **Comprehensive Bias Analysis**│   └── variants.json        # Generated prompt variants
-
-   - **Sentiment Analysis**: Uses TextBlob to compute polarity (-1 to +1) and subjectivity (0 to 1)
-
-   - **Statistical Testing**: Paired t-tests, chi-square tests, and Cohen's d effect sizes# Install dependencies├── results/
-
-   - **Claim Validation**: Regex-based extraction and comparison against fixed ground truth
-
-   - **Visualization**: Box plots, heatmaps, and distribution chartspip install -r requirements.txt│   ├── logs_csv/           # CSV format logs
-
-
-
-5. **Professional Research Documentation**```│   ├── logs_jsonl/         # JSONL format logs
-
-   - Full experimental design with IRB-ready methodology
-
-   - Comprehensive research report with literature review, methods, and TBD results sections│   └── summaries/          # Result summaries
-
-   - Reproducible analysis with pinned dependencies and fixed random seeds
-
-### 2. Generate Prompt Variants├── .venv/                  # Virtual environment
-
-## Repository Structure
-
-├── requirements.txt
-
-```
-
-.```bash├── README.md
-
-├── README.md                      # This file - comprehensive project guide
-
-├── REPORT.md                      # 553-line research report (ready for submission)python src/experiment_design.py --csv data/results.csv --out prompts/variants.json└── REPORT.md
-
-├── EXPERIMENTAL_DESIGN.md         # 251-line methodology documentation
-
-├── COMPLETION_SUMMARY.md          # Project progress tracking``````
-
-├── requirements.txt               # Pinned Python dependencies
-
-│
-
-├── data/
-
-│   └── results.csv                # Kaggle dataset (International Football Results 1872-2017)### 3. Run Experiments## Setup
-
-│
-
-├── prompts/
-
-│   └── variants.json              # Generated prompt pairs (H1A-H5B) with anonymized data
-
-│```bash1. Create virtual environment:
-
-├── results/
-
-│   ├── logs_csv/                  # CSV logs for quick Excel/pandas analysis# Collect data for Claude 3 with 3 runs per prompt   ```bash
-
-│   ├── logs_jsonl/                # JSONL logs for detailed structured data
-
-│   ├── summaries/                 # JSON summaries and validation reportspython src/run_experiment.py --model Claude3 --runs 3 --model-version "claude-3-opus-20240229"   python3 -m venv .venv
-
-│   │   └── claim_validation_report.json
-
-│   └── analysis/                  # Generated visualizations and statistical outputs```   source .venv/bin/activate  # On macOS/Linux
-
-│       └── README.md
-
-│   ```
-
-└── src/
-
-    ├── experiment_design.py       # Generate prompts with fixed anonymized values**Process:** Copy each prompt to LLM web UI → Paste response → Repeat for all variants
-
-    ├── run_experiment.py          # Interactive LLM response collection
-
-    ├── analyze_bias.py            # Statistical analysis and visualization2. Install dependencies:
-
-    └── validate_claims.py         # Extract and validate numerical claims
-
-```### 4. Analyze Results   ```bash
-
-
-
-## Getting Started   pip install -r requirements.txt
-
-
-
-### Prerequisites```bash   ```
-
-
-
-- **Python 3.10+** (tested on macOS ARM64 with Python 3.10)python src/analyze_bias.py
-
-- **Virtual environment** recommended (avoids architecture conflicts on Apple Silicon)
-
-- **LLM API access** for data collection:python src/validate_claims.py --csv data/results.csv --tolerance 0.5## Usage
-
-  - OpenAI GPT-5 (requires API key)
-
-  - Anthropic Claude 3 Opus via Syracuse Enterprise License (SU students/faculty)```
-
-  - Google Gemini 1.5 Pro (requires API key)
-
-1. Place your dataset in `data/results.csv`
-
-### Installation
-
-### 5. Review Report2. Run experiment design: `python src/experiment_design.py`
-
-1. **Clone the repository**:
-
-   ```bash3. Execute experiments: `python src/run_experiment.py`
-
-   git clone <your-repo-url>
-
-   cd Research_task08_Bias_detectionSee `REPORT.md` for full analysis and findings.4. Analyze results: `python src/analyze_bias.py`
-
-   ```
-
-5. Validate claims: `python src/validate_claims.py`
-
-2. **Create and activate virtual environment**:
-
-   ```bash## Repository Structure
-
-   python3.10 -m venv .venv
-
-   source .venv/bin/activate  # On macOS/Linux## Date Created
-
-   # .venv\Scripts\activate    # On Windows
-
-   ``````November 15, 2025
-
-
-
-3. **Install dependencies**:├── README.md                   # This file
-
-   ```bash├── REPORT.md                   # Final research report
-
-   pip install --upgrade pip├── EXPERIMENTAL_DESIGN.md      # Hypothesis documentation
-
-   pip install -r requirements.txt├── requirements.txt            # Dependencies
-
-   ```├── data/
-
-│   └── results.csv            # Source dataset
-
-   **Key dependencies**:├── prompts/
-
-   - `pandas==2.1.0` - Data manipulation and ground truth calculations│   └── variants.json          # Generated prompt pairs (H1A-H5B)
-
-   - `scipy==1.11.4` - Statistical tests (t-test, chi-square, Cohen's d)├── src/
-
-   - `textblob==0.17.1` - Sentiment analysis (polarity/subjectivity)│   ├── experiment_design.py   # Generates prompts
-
-   - `matplotlib==3.8.0` - Visualization generation│   ├── run_experiment.py      # Collects LLM responses
-
-   - `seaborn==0.13.0` - Advanced statistical plots│   ├── analyze_bias.py        # Statistical analysis
-
-   - `python-dotenv==1.0.0` - Optional environment configuration│   └── validate_claims.py     # Ground truth validation
-
-└── results/
-
-4. **Verify installation**:    ├── logs_csv/              # Response logs (CSV)
-
-   ```bash    ├── logs_jsonl/            # Response logs (JSONL)
-
-   python -m py_compile src/*.py    ├── summaries/             # Analysis summaries
-
-   # Should complete silently with no errors    └── analysis/              # Visualizations
-
-   ``````
-
-
-# Hypotheses Tested
-
-| **H1** | Framing Effect | Positive vs. negative tone | "growth potential" vs. "underperformed" |
-| **H2** | Anchoring Bias | Prestige cue | "Team A & D are powerhouses" |
-| **H3** | Attribution Bias | Problem vs. solution | "what went wrong" vs. "opportunities" |
-| **H4** | Selection Bias | Data scope | All matches vs. friendlies only |
-| **H5** | Definition Bias | Metric ambiguity | "dominance" vs. "consistency" |
-
-### Dataset Setup
-
-The project uses the **International Football Results dataset** (1872-2017) from Kaggle. This dataset contains approximately 40,000 international football matches with detailed statistics.| ID | Bias Type | Manipulation | Example |
-
-|----|-----------|--------------|---------|
-
-1. **Download the dataset**:
-
-   - Visit [Kaggle International Football Results](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017)
-
-   - Download `results.csv` (ensure it contains columns: `date`, `home_team`, `away_team`, `home_score`, `away_score`, `tournament`, `city`, `country`)
-
-
-2. **Place in project**:
-
-   ```bash
-
-   cp ~/Downloads/results.csv data/results.csv## Key Features
-
-   ```
-
-- **Anonymized Data:** Team A/B/C/D/E (no PII per assignment requirements)
-
-3. **Verify dataset**:- **Fixed Values:** Reproducible results across all models
-
-   ```bash- **Multi-Model Support:** Test Claude, GPT-4, Gemini
-
-   python -c "import pandas as pd; df = pd.read_csv('data/results.csv'); print(f'Loaded {len(df)} matches')"- **Multiple Runs:** 3-5 runs per prompt for statistical power
-
-   # Should print: Loaded ~40000 matches- **Statistical Tests:** t-tests, chi-square, Cohen's d effect sizes
-
-   ```- **Sentiment Analysis:** TextBlob polarity + rule-based scoring
-
-- **Ground Truth Validation:** Flags fabricated statistics
-
-**Note**: The dataset is used only to compute anonymized aggregate statistics. Individual match details are not included in prompts. All team names are replaced with "Team A" through "Team E" to eliminate cultural bias.- **Visualizations:** Box plots, heatmaps, bar charts
-
-
-
-## Running the Experiment## Dependencies
-
-
-
-### Step 1: Generate Prompt Variants```
-
-pandas==2.1.0
-
-This script creates 10 prompt variants (2 per hypothesis) with the fixed anonymized dataset block:scipy==1.11.4
-
-textblob==0.17.1
-
-```bashmatplotlib==3.8.0
-
-python src/experiment_design.pyseaborn==0.13.0
-
-```numpy==1.26.4
-
-python-dotenv==1.0.0
-
-**What it does**:pyyaml==6.0.1
-
-- Reads `data/results.csv` and computes aggregate statistics```
-
-- Anonymizes top 5 teams as Team A-E with fixed win rates
-
-- Generates `prompts/variants.json` containing:## Expected Outcomes
-
-  - H1A/H1B: Framing (wins vs. losses)
-
-  - H2A/H2B: Anchoring (high-to-low vs. low-to-high)**If models are bias-free:** H1A/H1B produce similar outputs  
-
-  - H3A/H3B: Attribution (home advantage vs. balance)**If models exhibit bias:** Framing significantly affects sentiment (p < 0.05)
-
-  - H4A/H4B: Selection (top 3 vs. bottom 2)
-
-  - H5A/H5B: Metric (goals vs. percentages)## Common Issues
-
-
-
-**Output**: `prompts/variants.json` (ready for manual copy-paste to LLMs)**`ModuleNotFoundError`:** Run `pip install -r requirements.txt`  
-
-**`FileNotFoundError`:** Run `python src/experiment_design.py` first  
-
-**Example snippet**:**Fabricated stats:** Run `validate_claims.py` to detect
-
-```json
-
-{## Extending the Project
-
-  "dataset_block": "Team A - 63.5% | Team B - 59.2% | Team C - 58.7% | Team D - 57.8% | Team E - 55.1%",
-
-  "variants": [- Test additional models (Llama, Mistral)
-
-    {- Add new hypotheses (H6, H7)
-
-      "prompt_id": "H1A_framing_wins",- Automate with API calls
-
-      "dataset": "...",- Cross-model comparison analysis
-
-      "question": "Summarize the key insights about these international football teams' performance..."
-
-    }## Ethical Considerations
-
-  ]
-
-}- Data anonymized per assignment requirements
-
-```- Limitations documented in `REPORT.md`
-
-- Findings shared to improve LLM deployment practices
-
-### Step 2: Collect LLM Responses
-
-## Contact
-
-This interactive script guides you through collecting responses from LLMs (GPT-5, Claude 3 Opus, Gemini 1.5 Pro):
 
 **Author:** Aditya Deshmukh  
 
+**Course:** IST 652 - Scripting for Data Analysis, Syracuse University  
+
+**Submission Date:** November 15, 2025## Project Overview
+
+
+
+---
+
+
+
+## OverviewThis research project investigates how subtle variations in data presentation can trigger cognitive biases in Large Language Models (LLMs), particularly when they interpret and summarize statistical information. Rather than testing explicit manipulation, we explore whether phenomena documented in human decision-making—such as **framing effects**, **anchoring bias**, **attribution bias**, **selection bias**, and **metric bias**—manifest in LLM-generated narratives about the same underlying dataset.**Author:** Aditya Deshmukh  ## Research Project Overview
+
+
+
+This project investigates whether Large Language Models exhibit cognitive biases similar to humans when presented with identical data in different formats. Specifically, I test five types of cognitive biases—framing effects, anchoring bias, attribution bias, selection bias, and metric bias—using controlled experimental prompts with the International Football Results dataset from Kaggle.
+
+
+
+The central research question is: **Do subtle variations in how data is presented cause LLMs to generate systematically different narratives, even when the underlying statistics are identical?**The central question is: **Do LLMs exhibit systematic bias patterns when presented with identical data in different formats?** This matters because LLMs are increasingly used to summarize complex datasets in journalism, business intelligence, education, and policy contexts. If subtle presentation differences lead to systematically different interpretations, users may receive biased narratives without realizing the information source was identical.**Course:** Research Task 8 - Syracuse University  
+
+
+
+This matters because LLMs are increasingly used to summarize complex datasets in journalism, business intelligence, education, and policy-making. If presentation differences lead to biased conclusions, users might receive misleading insights without realizing the source data was the same.
+
+
+
+---## What This Project Does**Submission Date:** November 15, 2025This project investigates bias detection in Large Language Model (LLM) data narratives.
+
+
+
+## What This Project Does
+
+
+
+### 1. Data Preparation and Anonymization1. **Data Anonymization & Ground Truth Establishment**
+
+
+
+I use the International Football Results dataset (1872-2017) containing approximately 40,000 international matches from Kaggle. To eliminate cultural associations and potential confounds, I anonymize the top five teams as Team A through Team E.   - Uses the International Football Results dataset (1872-2017, ~40,000 matches from Kaggle)
+
+
+
+The project establishes **fixed ground truth values** for reproducibility:   - Anonymizes country names to Team A through Team E to remove cultural associations## Overview## Project Structure
+
+- Team A: 63.5% win rate
+
+- Team B: 59.2% win rate     - Establishes **fixed ground truth values** for reproducibility:
+
+- Team C: 58.7% win rate
+
+- Team D: 57.8% win rate     - Team A: 63.5% win rate
+
+- Team E: 55.1% win rate
+
+- Average goals per match: 2.75     - Team B: 59.2% win rate
+
+- Home advantage: 0.49 goals
+
+     - Team C: 58.7% win rateThis project systematically evaluates cognitive biases in Large Language Model (LLM) data narratives through controlled experimental manipulation. Using identical numerical datasets, we test whether prompt framing causes LLMs to generate systematically different conclusions.```
+
+### 2. Hypothesis Testing with Paired Prompts
+
+     - Team D: 57.8% win rate
+
+I designed 10 experimental prompts organized into 5 paired hypotheses. Each hypothesis tests a specific cognitive bias by presenting identical data in two different ways:
+
+     - Team E: 55.1% win rateResearch_task08_Bias_detection/
+
+| Hypothesis | Bias Type | Manipulation |
+
+|------------|-----------|--------------|     - Average goals per match: 2.75
+
+| **H1** | Framing Effect | Win percentages vs. loss percentages |
+
+| **H2** | Anchoring Bias | High-to-low vs. low-to-high team ordering |     - Home advantage: 0.49 goals## Quick Start├── data/
+
+| **H3** | Attribution Bias | Home advantage emphasis vs. competitive balance |
+
+| **H4** | Selection Bias | Top 3 teams vs. bottom 2 teams prominence |
+
+| **H5** | Metric Bias | Goal-based metrics vs. percentage-based metrics |
+
+2. **Hypothesis Testing Through Paired Prompts**│   └── results.csv          # Input dataset (manually populated)
+
+### 3. Multi-Model Response Collection
+
+   - Tests 5 specific cognitive biases with 10 total prompts (2 variants per hypothesis)
+
+The experiment supports three major LLM platforms:
+
+- **GPT-5** (OpenAI)   - **H1 (Framing)**: Win percentages vs. loss percentages### 1. Setup Environment├── src/
+
+- **Claude 3 Opus** (Anthropic, via Syracuse Enterprise License)
+
+- **Gemini 1.5 Pro** (Google)   - **H2 (Anchoring)**: High-to-low vs. low-to-high team ordering
+
+
+
+I use an interactive manual collection workflow where prompts are copied to each LLM's web interface and responses are pasted back for logging. The system supports multiple runs per prompt (recommended 3-10 runs) for statistical robustness.   - **H3 (Attribution)**: Home advantage emphasis vs. competitive balance emphasis│   ├── experiment_design.py # Generate experimental prompts
+
+
+
+All responses are logged in two formats:   - **H4 (Selection)**: Top 3 teams vs. bottom 2 teams prominence
+
+- **CSV logs** for quick Excel analysis
+
+- **JSONL logs** for detailed structured analysis   - **H5 (Metric)**: Goal-based vs. percentage-based analysis```bash│   ├── run_experiment.py    # Execute LLM experiments
+
+
+
+### 4. Comprehensive Bias Analysis
+
+
+
+The analysis pipeline includes:3. **Multi-Model LLM Response Collection**# Create virtual environment│   ├── analyze_bias.py      # Analyze bias in results
+
+
+
+**Sentiment Analysis**     - Supports GPT-5, Claude 3 Opus (Syracuse Enterprise License), and Gemini 1.5 Pro
+
+Using TextBlob, I compute polarity scores (-1 to +1) and subjectivity scores (0 to 1) for each response.
+
+   - Interactive manual collection workflow (copy prompt → paste response)python3 -m venv .venv│   └── validate_claims.py   # Validate experimental claims
+
+**Statistical Testing**  
+
+- Paired t-tests to compare sentiment between A/B variants   - Multi-run capability for statistical robustness (3-10 responses per prompt recommended)
+
+- Chi-square tests for categorical sentiment distributions
+
+- Cohen's d effect sizes to quantify bias magnitude   - Dual logging format: CSV (quick analysis) and JSONL (detailed records)source .venv/bin/activate  # On Windows: .venv\Scripts\activate├── prompts/
+
+
+
+**Claim Validation**  
+
+Using regex patterns, I extract numerical claims from LLM responses and compare them against fixed ground truth values to detect hallucinations or fabricated statistics.
+
+4. **Comprehensive Bias Analysis**│   └── variants.json        # Generated prompt variants
+
+**Visualization**  
+
+The system generates box plots, heatmaps, and distribution charts to visualize bias patterns across models and hypotheses.   - **Sentiment Analysis**: Uses TextBlob to compute polarity (-1 to +1) and subjectivity (0 to 1)
+
+
+
+---   - **Statistical Testing**: Paired t-tests, chi-square tests, and Cohen's d effect sizes# Install dependencies├── results/
+
+
+
+## Repository Structure   - **Claim Validation**: Regex-based extraction and comparison against fixed ground truth
+
+
+
+```   - **Visualization**: Box plots, heatmaps, and distribution chartspip install -r requirements.txt│   ├── logs_csv/           # CSV format logs
+
+Research_task08_Bias_detection/
+
+├── README.md                      # This file
+
+├── REPORT.md                      # Complete research report (553 lines)
+
+├── EXPERIMENTAL_DESIGN.md         # Detailed methodology (251 lines)5. **Professional Research Documentation**```│   ├── logs_jsonl/         # JSONL format logs
+
+├── COMPLETION_SUMMARY.md          # Progress tracking
+
+├── requirements.txt               # Python dependencies   - Full experimental design with IRB-ready methodology
+
+│
+
+├── data/   - Comprehensive research report with literature review, methods, and TBD results sections│   └── summaries/          # Result summaries
+
+│   └── results.csv               # Download from Kaggle (see Setup below)
+
+│   - Reproducible analysis with pinned dependencies and fixed random seeds
+
+├── prompts/
+
+│   └── variants.json             # Generated prompt pairs (H1A-H5B)### 2. Generate Prompt Variants├── .venv/                  # Virtual environment
+
+│
+
+├── results/## Repository Structure
+
+│   ├── logs_csv/                 # CSV format logs
+
+│   ├── logs_jsonl/               # JSONL format logs  ├── requirements.txt
+
+│   ├── summaries/                # Validation reports
+
+│   └── analysis/                 # Generated visualizations```
+
+│
+
+└── src/.```bash├── README.md
+
+    ├── experiment_design.py      # Generate experimental prompts
+
+    ├── run_experiment.py         # Collect LLM responses├── README.md                      # This file - comprehensive project guide
+
+    ├── analyze_bias.py           # Statistical analysis
+
+    └── validate_claims.py        # Validate numerical claims├── REPORT.md                      # 553-line research report (ready for submission)python src/experiment_design.py --csv data/results.csv --out prompts/variants.json└── REPORT.md
+
+```
+
+├── EXPERIMENTAL_DESIGN.md         # 251-line methodology documentation
+
+---
+
+├── COMPLETION_SUMMARY.md          # Project progress tracking``````
+
+## Getting Started
+
+├── requirements.txt               # Pinned Python dependencies
+
+### Prerequisites
+
+│
+
+- Python 3.10 or higher (tested on macOS ARM64)
+
+- Virtual environment recommended to avoid dependency conflicts├── data/
+
+- Access to at least one LLM platform (GPT-5, Claude 3 Opus, or Gemini 1.5 Pro)
+
+│   └── results.csv                # Kaggle dataset (International Football Results 1872-2017)### 3. Run Experiments## Setup
+
+### Setup
+
+│
+
+**1. Clone the repository**
+
+├── prompts/
+
+```bash
+
+git clone https://github.com/Adityadeshmukh302/Task_08_Bias_Detection.git│   └── variants.json              # Generated prompt pairs (H1A-H5B) with anonymized data
+
+cd Task_08_Bias_Detection
+
+```│```bash1. Create virtual environment:
+
+
+
+**2. Create and activate a virtual environment**├── results/
+
+
+
+```bash│   ├── logs_csv/                  # CSV logs for quick Excel/pandas analysis# Collect data for Claude 3 with 3 runs per prompt   ```bash
+
+python3.10 -m venv .venv
+
+source .venv/bin/activate  # On macOS/Linux│   ├── logs_jsonl/                # JSONL logs for detailed structured data
+
+# On Windows: .venv\Scripts\activate
+
+```│   ├── summaries/                 # JSON summaries and validation reportspython src/run_experiment.py --model Claude3 --runs 3 --model-version "claude-3-opus-20240229"   python3 -m venv .venv
+
+
+
+**3. Install dependencies**│   │   └── claim_validation_report.json
+
+
+
+```bash│   └── analysis/                  # Generated visualizations and statistical outputs```   source .venv/bin/activate  # On macOS/Linux
+
+pip install --upgrade pip
+
+pip install -r requirements.txt│       └── README.md
+
+```
+
+│   ```
+
+The key dependencies include:
+
+- pandas 2.1.0 (data manipulation)└── src/
+
+- scipy 1.11.4 (statistical tests)  
+
+- textblob 0.17.1 (sentiment analysis)    ├── experiment_design.py       # Generate prompts with fixed anonymized values**Process:** Copy each prompt to LLM web UI → Paste response → Repeat for all variants
+
+- matplotlib 3.8.0 and seaborn 0.13.0 (visualizations)
+
+    ├── run_experiment.py          # Interactive LLM response collection
+
+**4. Download the dataset**
+
+    ├── analyze_bias.py            # Statistical analysis and visualization2. Install dependencies:
+
+Visit [Kaggle: International Football Results 1872-2017](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017) and download `results.csv`. Place it in the `data/` directory:
+
+    └── validate_claims.py         # Extract and validate numerical claims
+
+```bash
+
+cp ~/Downloads/results.csv data/results.csv```### 4. Analyze Results   ```bash
+
+```
+
+
+
+Verify the dataset loaded correctly:
+
+## Getting Started   pip install -r requirements.txt
+
+```bash
+
+python -c "import pandas as pd; df = pd.read_csv('data/results.csv'); print(f'Loaded {len(df)} matches')"
+
+```
+
+### Prerequisites```bash   ```
+
+You should see: `Loaded ~40000 matches`
+
+
+
+---
+
+- **Python 3.10+** (tested on macOS ARM64 with Python 3.10)python src/analyze_bias.py
+
+## Running the Experiment
+
+- **Virtual environment** recommended (avoids architecture conflicts on Apple Silicon)
+
+### Step 1: Generate Prompt Variants
+
+- **LLM API access** for data collection:python src/validate_claims.py --csv data/results.csv --tolerance 0.5## Usage
+
+Run the experiment design script to create all 10 prompt variants with anonymized data:
+
+  - OpenAI GPT-5 (requires API key)
+
+```bash
+
+python src/experiment_design.py  - Anthropic Claude 3 Opus via Syracuse Enterprise License (SU students/faculty)```
+
+```
+
+  - Google Gemini 1.5 Pro (requires API key)
+
+This script:
+
+- Reads the football results dataset1. Place your dataset in `data/results.csv`
+
+- Computes aggregate statistics for the top 5 teams
+
+- Anonymizes team names as Team A through Team E### Installation
+
+- Generates `prompts/variants.json` with paired prompts for each hypothesis
+
+### 5. Review Report2. Run experiment design: `python src/experiment_design.py`
+
+**Output:** `prompts/variants.json` (ready for manual testing with LLMs)
+
+1. **Clone the repository**:
+
+### Step 2: Collect LLM Responses
+
+   ```bash3. Execute experiments: `python src/run_experiment.py`
+
+Run the interactive data collection script:
+
+   git clone <your-repo-url>
+
+```bash
+
+python src/run_experiment.py --model claude-opus --model-version "claude-3-opus-20240229" --runs 5   cd Research_task08_Bias_detectionSee `REPORT.md` for full analysis and findings.4. Analyze results: `python src/analyze_bias.py`
+
+```
+
+   ```
+
+**Parameters:**
+
+- `--model`: Choose `gpt-5`, `claude-opus`, or `gemini-pro`5. Validate claims: `python src/validate_claims.py`
+
+- `--model-version`: Specify the exact model version (e.g., "gpt-5-turbo-2024-10-01")
+
+- `--runs`: Number of times to collect responses for each prompt (recommended: 5-10)2. **Create and activate virtual environment**:
+
+
+
+**Workflow:**   ```bash## Repository Structure
+
+1. The script displays a prompt from `variants.json`
+
+2. Copy the prompt and paste it into your LLM's web interface   python3.10 -m venv .venv
+
+3. Copy the LLM's response
+
+4. Paste the response back into the terminal   source .venv/bin/activate  # On macOS/Linux## Date Created
+
+5. Repeat for all 10 prompts
+
+   # .venv\Scripts\activate    # On Windows
+
+The script automatically logs responses to:
+
+- `results/logs_csv/responses_YYYYMMDD_HHMMSS.csv`   ``````November 15, 2025
+
+- `results/logs_jsonl/responses_YYYYMMDD_HHMMSS.jsonl`
+
+
+
+**Data Collection Goals:**
+
+- Minimum: 30 responses (10 prompts × 3 runs)3. **Install dependencies**:├── README.md                   # This file
+
+- Recommended: 50-90 responses (10 prompts × 5-9 runs) for statistical significance
+
+- Ideal: Collect from multiple models to enable cross-model comparison   ```bash├── REPORT.md                   # Final research report
+
+
+
+### Step 3: Analyze Bias Patterns   pip install --upgrade pip├── EXPERIMENTAL_DESIGN.md      # Hypothesis documentation
+
+
+
+Run the statistical analysis on collected responses:   pip install -r requirements.txt├── requirements.txt            # Dependencies
+
+
+
+```bash   ```├── data/
+
+python src/analyze_bias.py results/logs_jsonl/responses_YYYYMMDD_HHMMSS.jsonl
+
+```│   └── results.csv            # Source dataset
+
+
+
+This script performs:   **Key dependencies**:├── prompts/
+
+
+
+**Sentiment Analysis**     - `pandas==2.1.0` - Data manipulation and ground truth calculations│   └── variants.json          # Generated prompt pairs (H1A-H5B)
+
+Computes TextBlob polarity and subjectivity scores, aggregated by hypothesis and variant.
+
+   - `scipy==1.11.4` - Statistical tests (t-test, chi-square, Cohen's d)├── src/
+
+**Statistical Testing**  
+
+Runs paired t-tests, chi-square tests, and calculates Cohen's d effect sizes to quantify bias.   - `textblob==0.17.1` - Sentiment analysis (polarity/subjectivity)│   ├── experiment_design.py   # Generates prompts
+
+
+
+**Visualization**     - `matplotlib==3.8.0` - Visualization generation│   ├── run_experiment.py      # Collects LLM responses
+
+Generates box plots, heatmaps, and distribution charts saved to `results/analysis/`.
+
+   - `seaborn==0.13.0` - Advanced statistical plots│   ├── analyze_bias.py        # Statistical analysis
+
+**Example Output:**
+
+```   - `python-dotenv==1.0.0` - Optional environment configuration│   └── validate_claims.py     # Ground truth validation
+
+=== Hypothesis H1 (Framing) ===
+
+H1A (Wins):     μ=0.42, σ=0.18, n=5└── results/
+
+H1B (Losses):   μ=0.21, σ=0.14, n=5
+
+Paired t-test:  t=3.21, p=0.008 **4. **Verify installation**:    ├── logs_csv/              # Response logs (CSV)
+
+Cohen's d:      1.28 (large effect)
+
+Interpretation: Win framing produces significantly more positive sentiment   ```bash    ├── logs_jsonl/            # Response logs (JSONL)
+
+```
+
+   python -m py_compile src/*.py    ├── summaries/             # Analysis summaries
+
+### Step 4: Validate Numerical Claims
+
+   # Should complete silently with no errors    └── analysis/              # Visualizations
+
+Extract and validate numerical claims from LLM responses:
+
+   ``````
+
+```bash
+
+python src/validate_claims.py results/logs_jsonl/responses_YYYYMMDD_HHMMSS.jsonl
+
+```# Hypotheses Tested
+
+
+
+This script:| **H1** | Framing Effect | Positive vs. negative tone | "growth potential" vs. "underperformed" |
+
+- Uses regex to extract numerical claims (e.g., "Team A has a 63.5% win rate")| **H2** | Anchoring Bias | Prestige cue | "Team A & D are powerhouses" |
+
+- Compares extracted values against fixed ground truth| **H3** | Attribution Bias | Problem vs. solution | "what went wrong" vs. "opportunities" |
+
+- Flags hallucinations and fabricated statistics| **H4** | Selection Bias | Data scope | All matches vs. friendlies only |
+
+- Generates `results/summaries/claim_validation_report.json`| **H5** | Definition Bias | Metric ambiguity | "dominance" vs. "consistency" |
+
+
+
+**Ground Truth Values:**### Dataset Setup
+
+```python
+
+{The project uses the **International Football Results dataset** (1872-2017) from Kaggle. This dataset contains approximately 40,000 international football matches with detailed statistics.| ID | Bias Type | Manipulation | Example |
+
+    "Team A": 63.5,
+
+    "Team B": 59.2,|----|-----------|--------------|---------|
+
+    "Team C": 58.7,
+
+    "Team D": 57.8,1. **Download the dataset**:
+
+    "Team E": 55.1
+
+}   - Visit [Kaggle International Football Results](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017)
+
+```
+
+   - Download `results.csv` (ensure it contains columns: `date`, `home_team`, `away_team`, `home_score`, `away_score`, `tournament`, `city`, `country`)
+
+---
+
+
+
+## Expected Outcomes2. **Place in project**:
+
+
+
+Based on human cognitive bias literature, I expect:   ```bash
+
+
+
+**H1 (Framing):** Win-framed prompts will produce more positive sentiment than loss-framed prompts, even with identical data (predicted Cohen's d > 0.5).   cp ~/Downloads/results.csv data/results.csv## Key Features
+
+
+
+**H2 (Anchoring):** High-to-low ordering will anchor narratives on top teams, while low-to-high may emphasize competitive parity.   ```
+
+
+
+**H3 (Attribution):** Home advantage framing may lead to more cautious interpretations, while competitive balance framing may produce stronger claims.- **Anonymized Data:** Team A/B/C/D/E (no PII per assignment requirements)
+
+
+
+**H4 (Selection):** Prompts highlighting bottom 2 teams will produce more negative tone and emphasize struggle narratives.3. **Verify dataset**:- **Fixed Values:** Reproducible results across all models
+
+
+
+**H5 (Metric):** Goal-based analysis may focus on offensive prowess, while percentage-based may emphasize consistency.   ```bash- **Multi-Model Support:** Test Claude, GPT-4, Gemini
+
+
+
+The actual results will be added to this README and the full REPORT.md after completing data collection and analysis.   python -c "import pandas as pd; df = pd.read_csv('data/results.csv'); print(f'Loaded {len(df)} matches')"- **Multiple Runs:** 3-5 runs per prompt for statistical power
+
+
+
+---   # Should print: Loaded ~40000 matches- **Statistical Tests:** t-tests, chi-square, Cohen's d effect sizes
+
+
+
+## Deliverables   ```- **Sentiment Analysis:** TextBlob polarity + rule-based scoring
+
+
+
+### Code Scripts (All Located in `src/`)- **Ground Truth Validation:** Flags fabricated statistics
+
+- ✅ `experiment_design.py` - Generates all prompt variations
+
+- ✅ `run_experiment.py` - Executes LLM queries and logs responses  **Note**: The dataset is used only to compute anonymized aggregate statistics. Individual match details are not included in prompts. All team names are replaced with "Team A" through "Team E" to eliminate cultural bias.- **Visualizations:** Box plots, heatmaps, bar charts
+
+- ✅ `analyze_bias.py` - Quantitative analysis of outputs
+
+- ✅ `validate_claims.py` - Checks LLM statements against ground truth
+
+
+
+### Documentation## Running the Experiment## Dependencies
+
+- ✅ `prompts/` - Directory with all prompt templates and variations
+
+- ✅ `results/` - All raw LLM responses (large files not committed to git)
+
+- ✅ `results/analysis/` - Statistical tests, visualizations, summary tables
+
+- ✅ `REPORT.md` - Final bias detection report (553 lines)### Step 1: Generate Prompt Variants```
+
+- ✅ `EXPERIMENTAL_DESIGN.md` - Detailed methodology (251 lines)
+
+- ✅ `README.md` - This file explaining how to reproduce experimentspandas==2.1.0
+
+
+
+---This script creates 10 prompt variants (2 per hypothesis) with the fixed anonymized dataset block:scipy==1.11.4
+
+
+
+## Ethical Considerationstextblob==0.17.1
+
+
+
+This research follows strict ethical guidelines:```bashmatplotlib==3.8.0
+
+
+
+1. **No Human Subjects:** Uses only publicly available historical sports data from Kaggle. No personal information, surveys, or identifiable participants.python src/experiment_design.pyseaborn==0.13.0
+
+
+
+2. **Data Anonymization:** All team names replaced with "Team A-E" to eliminate cultural bias and national stereotypes.```numpy==1.26.4
+
+
+
+3. **Transparency:** Prompts are identical except for tested variables. No deceptive practices.python-dotenv==1.0.0
+
+
+
+4. **Reproducibility:** Fixed random seeds, pinned dependencies, and version-controlled prompts ensure replicability.**What it does**:pyyaml==6.0.1
+
+
+
+5. **Responsible AI:** The project aims to document potential biases to inform responsible LLM deployment, not to exploit weaknesses.- Reads `data/results.csv` and computes aggregate statistics```
+
+
+
+6. **IRB Status:** This research is considered IRB-exempt (no human subjects, publicly available data only). For journal publication, Syracuse University's IRB should be consulted.- Anonymizes top 5 teams as Team A-E with fixed win rates
+
+
+
+---- Generates `prompts/variants.json` containing:## Expected Outcomes
+
+
+
+## Troubleshooting  - H1A/H1B: Framing (wins vs. losses)
+
+
+
+### Common Issues and Solutions  - H2A/H2B: Anchoring (high-to-low vs. low-to-high)**If models are bias-free:** H1A/H1B produce similar outputs  
+
+
+
+**ModuleNotFoundError: python-dotenv**    - H3A/H3B: Attribution (home advantage vs. balance)**If models exhibit bias:** Framing significantly affects sentiment (p < 0.05)
+
+The `python-dotenv` module is optional. Either install it (`pip install python-dotenv`) or ignore the error—scripts work without it.
+
+  - H4A/H4B: Selection (top 3 vs. bottom 2)
+
+**Architecture mismatch on Apple Silicon Macs**  
+
+Always use a virtual environment (`python3.10 -m venv .venv`) instead of system Python to avoid x86_64 vs ARM64 conflicts.  - H5A/H5B: Metric (goals vs. percentages)## Common Issues
+
+
+
+**scipy 1.11.0 yanked error**  
+
+The project uses `scipy==1.11.4` specifically. Run `pip install --upgrade scipy==1.11.4` if needed.
+
+**Output**: `prompts/variants.json` (ready for manual copy-paste to LLMs)**`ModuleNotFoundError`:** Run `pip install -r requirements.txt`  
+
+**Empty analysis output**  
+
+Verify the JSONL file exists and contains valid JSON objects (one per line). Check the file path in your command.**`FileNotFoundError`:** Run `python src/experiment_design.py` first  
+
+
+
+**TextBlob corpora not found**  **Example snippet**:**Fabricated stats:** Run `validate_claims.py` to detect
+
+Run `python -m textblob.download_corpora` to download required NLTK data.
+
+```json
+
+### Validation Commands
+
+{## Extending the Project
+
+```bash
+
+# Check Python version  "dataset_block": "Team A - 63.5% | Team B - 59.2% | Team C - 58.7% | Team D - 57.8% | Team E - 55.1%",
+
+python --version  # Should be 3.10+
+
+  "variants": [- Test additional models (Llama, Mistral)
+
+# Verify all dependencies installed
+
+pip list | grep -E "pandas|scipy|textblob|matplotlib"    {- Add new hypotheses (H6, H7)
+
+
+
+# Test all scripts compile without errors      "prompt_id": "H1A_framing_wins",- Automate with API calls
+
+python -m py_compile src/*.py
+
+      "dataset": "...",- Cross-model comparison analysis
+
+# Validate dataset loads correctly
+
+python -c "import pandas as pd; print(pd.read_csv('data/results.csv').shape)"      "question": "Summarize the key insights about these international football teams' performance..."
+
+
+
+# Check prompt generation works    }## Ethical Considerations
+
+python src/experiment_design.py && cat prompts/variants.json | head -n 20
+
+```  ]
+
+
+
+---}- Data anonymized per assignment requirements
+
+
+
+## Project Timeline```- Limitations documented in `REPORT.md`
+
+
+
+**Key Deadlines (IST 652 Fall 2025):**- Findings shared to improve LLM deployment practices
+
+- October 15, 2025: Qualtrics Report #1 (Experimental Design)
+
+- November 1, 2025: Qualtrics Report #2 (Progress Update)  ### Step 2: Collect LLM Responses
+
+- November 15, 2025: Final Qualtrics Report + GitHub Repository Link
+
+## Contact
+
+**Current Status:** ✅ Experimental design complete, data collection in progress
+
+This interactive script guides you through collecting responses from LLMs (GPT-5, Claude 3 Opus, Gemini 1.5 Pro):
+
+---
+
+**Author:** Aditya Deshmukh  
+
+## Key Documents
+
 ```bash**Email:** [your.email@syr.edu]
 
-python src/run_experiment.py --model gpt-5 --model-version gpt-5-turbo-2024-10-01 --runs 5
+**REPORT.md (553 lines)**  
 
-```---
+Comprehensive research report with introduction, literature review, hypotheses, methodology, results (TBD), discussion (TBD), and references. Ready for submission after data collection.python src/run_experiment.py --model gpt-5 --model-version gpt-5-turbo-2024-10-01 --runs 5
 
 
 
-**Parameters**:**Last Updated:** November 15, 2025
+**EXPERIMENTAL_DESIGN.md (251 lines)**  ```---
 
-- `--model`: LLM identifier (gpt-5 | claude-opus | gemini-pro)
+Detailed methodology documentation covering research questions, hypothesis formulation, dataset selection, prompt engineering, data collection protocol, analysis plan, and reproducibility checklist.
+
+
+
+**COMPLETION_SUMMARY.md**  
+
+Project progress tracker with task completion checklist, known issues, and next steps.**Parameters**:**Last Updated:** November 15, 2025
+
+
+
+---- `--model`: LLM identifier (gpt-5 | claude-opus | gemini-pro)
+
 - `--model-version`: Specific version string (e.g., "gpt-5-turbo-2024-10-01", "claude-3-opus-20240229")
-- `--runs`: Number of responses per prompt (default: 3, recommended: 5-10 for statistical power)
 
-**Workflow**:
-1. Script displays a prompt from `variants.json`
-2. You copy the prompt → paste into LLM interface → copy response
+## Contact- `--runs`: Number of responses per prompt (default: 3, recommended: 5-10 for statistical power)
+
+
+
+**Aditya Deshmukh**  **Workflow**:
+
+Syracuse University, School of Information Studies  1. Script displays a prompt from `variants.json`
+
+IST 652 - Scripting for Data Analysis, Fall 20252. You copy the prompt → paste into LLM interface → copy response
+
 3. Paste response back into terminal
-4. Script logs to both CSV and JSONL formats
+
+GitHub Repository: [https://github.com/Adityadeshmukh302/Task_08_Bias_Detection](https://github.com/Adityadeshmukh302/Task_08_Bias_Detection)4. Script logs to both CSV and JSONL formats
+
 5. Repeat for all 10 prompts × N runs
 
+---
+
 **Output**:
-- `results/logs_csv/responses_YYYYMMDD_HHMMSS.csv` - Quick analysis format
+
+**Last Updated:** November 15, 2025- `results/logs_csv/responses_YYYYMMDD_HHMMSS.csv` - Quick analysis format
+
 - `results/logs_jsonl/responses_YYYYMMDD_HHMMSS.jsonl` - Detailed structured data
 
 **Example log entry**:
