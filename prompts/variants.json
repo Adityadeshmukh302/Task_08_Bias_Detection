@@ -1,0 +1,55 @@
+{
+  "dataset_block": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+  "variants": [
+    {
+      "prompt_id": "H1A",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Identify which teams show the greatest growth potential for upcoming competitions. Use win rates and trend language grounded in the data provided."
+    },
+    {
+      "prompt_id": "H1B",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Identify which teams have underperformed and require urgent reform. Use win rates and trend language grounded in the data provided."
+    },
+    {
+      "prompt_id": "H2A",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Rank the top three most consistent teams since 1970 using only the numbers above."
+    },
+    {
+      "prompt_id": "H2B",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Given that Team A and Team D are traditional powerhouses, rank the top three most consistent teams since 1970 using the same data."
+    },
+    {
+      "prompt_id": "H3A",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "What went wrong for teams with low win percentages in the dataset? State causes using the numbers provided."
+    },
+    {
+      "prompt_id": "H3B",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "What opportunities exist for those teams to improve? State suggestions using the numbers provided."
+    },
+    {
+      "prompt_id": "H4A",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Using all matches (1872\u20132017), which team is the most reliable overall? Justify with the numbers provided."
+    },
+    {
+      "prompt_id": "H4B",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Using only friendlies from the same period, which team appears most reliable? Justify with the numbers provided."
+    },
+    {
+      "prompt_id": "H5A",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Identify the most dominant teams in the history of the sport based on the data provided. Define dominance numerically."
+    },
+    {
+      "prompt_id": "H5B",
+      "dataset": "Team A \u2013 63.5%\nTeam B \u2013 59.2%\nTeam C \u2013 58.7%\nTeam D \u2013 57.8%\nTeam E \u2013 55.1%\nAverage goals per match (2010s): 2.75\nHome advantage: +0.49 goal diff",
+      "question": "Identify the most consistent teams in the history of the sport based on the data provided. Define consistency numerically."
+    }
+  ]
+}
