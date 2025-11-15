@@ -174,20 +174,10 @@ This design yields **consistent, reproducible output** for Phase 3 analysis.
 4. **Keyword Frequency**: Track mentions of specific teams across variants
 5. **Fabrication Detection**: Identify any hallucinated statistics not in the dataset
 
-## 8. Reproducibility Measures
-
-To ensure full reproducibility, the following safeguards were implemented:
-
-- ✅ All prompts generated automatically (no manual editing)
-- ✅ Deterministic dataset block (fixed values)
-- ✅ Logs stored in version-controlled repository
-- ✅ Scripts written to be rerunnable without modification
-- ✅ Team anonymization ensures ethical neutrality
-- ✅ No external data access allowed during LLM runs
-
 ---
 
-## 9. Expected Outcomes
+
+## 8. Expected Outcomes
 
 ### If Models Are Bias-Free
 
@@ -209,11 +199,11 @@ We expect:
 ### Confirmation of Expectations
 
 These expectations were mostly confirmed by the collected results:
-- ✅ Framing bias detected across all models
-- ✅ Anchoring bias limited to GPT-5
-- ✅ Claude and Gemini refused to analyze missing data
-- ✅ GPT-5 produced more narrative elaboration
-- ✅ Zero fabricated numerical values (confirmed via Phase 4 validation)
+- Framing bias detected across all models
+- Anchoring bias limited to GPT-5
+- Claude and Gemini refused to analyze missing data
+- GPT-5 produced more narrative elaboration
+- Zero fabricated numerical values (confirmed via Phase 4 validation)
 
 ---
 
@@ -227,18 +217,4 @@ This experimental design ensured a **controlled, scientific setup** where LLM be
 - Missing data
 - Prestige anchors
 
-The resulting workflow is **fully replicable** and all artifacts are included in the GitHub repository.
 
----
-
-## Technical Implementation Files
-
-| File | Purpose |
-|------|---------|
-| `src/experiment_design.py` | Uses **fixed values** instead of computing from CSV (ensures reproducibility) |
-| `src/run_experiment.py` | Interactive data collection with logging |
-| `src/analyze_bias.py` | Quantitative bias detection and sentiment analysis |
-| `src/validate_claims.py` | Uses same **fixed ground truth** for claim validation |
-| `prompts/variants.json` | Generated file containing all 10 prompt variants (H1A–H5B) |
-
----
